@@ -18,25 +18,27 @@ public class TimeServer {
             }
         }
 
-        ServerSocket server = null;
+        MultiplexerTimeServer timeServer = new MultiplexerTimeServer(port);
+        new Thread(timeServer,"NIO_MultiplexTimer-001").start();
 
-        try {
-            server = new ServerSocket(port);
-            System.out.println("The time server is start in port :" + port);
-            Socket socket = null;
-            TimeServerHandlerExecutePool singleExecutor = new TimeServerHandlerExecutePool(50,10000);
-
-            while (true){
-                socket = server.accept();
-                singleExecutor.execute(new TimeServerHandler(socket));
-//                new Thread(new TimeServerHandler(socket)).start();
-            }
-        }finally {
-            if (server != null){
-                System.out.println("The time server close");
-                server.close();
-                server = null;
-            }
-        }
+//        ServerSocket server = null;
+//        try {
+//            server = new ServerSocket(port);
+//            System.out.println("The time server is start in port :" + port);
+//            Socket socket = null;
+//            TimeServerHandlerExecutePool singleExecutor = new TimeServerHandlerExecutePool(50,10000);
+//
+//            while (true){
+//                socket = server.accept();
+//                singleExecutor.execute(new TimeServerHandler(socket));
+////                new Thread(new TimeServerHandler(socket)).start();
+//            }
+//        }finally {
+//            if (server != null){
+//                System.out.println("The time server close");
+//                server.close();
+//                server = null;
+//            }
+//        }
     }
 }
