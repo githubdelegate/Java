@@ -18,8 +18,11 @@ public class TimeServer {
             }
         }
 
-        MultiplexerTimeServer timeServer = new MultiplexerTimeServer(port);
-        new Thread(timeServer,"NIO_MultiplexTimer-001").start();
+        AsynTimeServerHandler timeServerHandler = new AsynTimeServerHandler(port);
+        new Thread(timeServerHandler,"AIO-AsynTimeServerHandler-001").start();
+
+//        MultiplexerTimeServer timeServer = new MultiplexerTimeServer(port);
+//        new Thread(timeServer,"NIO_MultiplexTimer-001").start();
 
 //        ServerSocket server = null;
 //        try {
