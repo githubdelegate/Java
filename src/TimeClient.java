@@ -18,7 +18,10 @@ public class TimeClient {
             }
         }
 
-        new Thread(new TimeClientHandler("127.0.0.1",port),"TimeClient-001").start();
+        // aio
+        new Thread(new AsynTimeClientHandler("127.0.0.1",port),"aio-timeclient").start();
+
+//        new Thread(new TimeClientHandler("127.0.0.1",port),"TimeClient-001").start();
 
 //        Socket socket = null;
 //        BufferedReader in = null;

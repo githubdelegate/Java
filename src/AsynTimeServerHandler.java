@@ -32,28 +32,24 @@ public class AsynTimeServerHandler implements Runnable {
     @Override
     public void run() {
         latch = new CountDownLatch(1);
-
-
+        doAccept();
+        try {
+//       Causes the current thread to wait until the latch has counted down to zero,
+// unless the thread is interrupted.
+            latch.await();
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
 
     public void doAccept(){
-        asynchronousServerSocketChannel.accept(this, new CompletionHandler<AsynchronousSocketChannel, AsynTimeServerHandler>() {
-            @Override
-            public void completed(AsynchronousSocketChannel result, AsynTimeServerHandler attachment) {
-
-            }
-
-            @Override
-            public void failed(Throwable exc, AsynTimeServerHandler attachment) {
-
-            }
-        });
+        /*
+        * This method initiates an asynchronous operation to accept a connection made to this channel's socket.
+         * The handler parameter is a completion handler that is invoked when a connection is accepted (or the operation fails).
+        * The result passed to the completion handler is the AsynchronousSocketChannel to the new connection.
+        * */
+        asynchronousServerSocketChannel.accept(this, new AcceptCompletonHandler());
     }
-
-
-
-
-
 }
 
 

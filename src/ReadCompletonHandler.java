@@ -22,14 +22,13 @@ public class ReadCompletonHandler implements CompletionHandler<Integer,ByteBuffe
         attachment.flip();
         byte[] body = new byte[attachment.remaining()];
         attachment.get(body);
-
         try {
             String req = new String(body,"UTF-8");
             System.out.println("The time server receive order: " + req);
             String currentTime = "QUERY TIME ORDER".equalsIgnoreCase(req)
                     ? new java.util.Date(System.currentTimeMillis()).toString()
                     : "BAD ORDER";
-
+            doWrite(currentTime);
         }catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }
